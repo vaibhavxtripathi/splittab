@@ -121,3 +121,4 @@ export async function getTabCount() {
 export const xlm   = s => (Number(s) / 10_000_000).toFixed(2)
 export const short = a => a ? `${a.toString().slice(0, 5)}…${a.toString().slice(-4)}` : '—'
 export { CONTRACT_ID }
+
