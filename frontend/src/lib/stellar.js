@@ -27,9 +27,7 @@ async function sendTx(publicKey, op) {
   if (StellarSdk.rpc.Api.isSimulationError(sim)) throw new Error(sim.error)
 
   const prepared = StellarSdk.rpc.assembleTransaction(tx, sim).build()
-  const result = await signTransaction(prepared.toXDR(), {
-    network: 'TESTNET',
-  })
+  const result = await signTransaction(prepared.toXDR(), { networkPassphrase: NET })
   if (result.error) throw new Error(result.error)
   const signed = StellarSdk.TransactionBuilder.fromXDR(result.signedTxXdr, NET)
   const sent = await rpc.sendTransaction(signed)
@@ -121,4 +119,5 @@ export async function getTabCount() {
 export const xlm   = s => (Number(s) / 10_000_000).toFixed(2)
 export const short = a => a ? `${a.toString().slice(0, 5)}…${a.toString().slice(-4)}` : '—'
 export { CONTRACT_ID }
+
 
